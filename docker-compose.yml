@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: cmdb-postgres
+    environment:
+      POSTGRES_DB: cmdb
+      POSTGRES_USER: cmdb_user
+      POSTGRES_PASSWORD: cmdb_password
+      # Optional: Set these to customize default admin user
+      # ADMIN_USERNAME: admin
+      # ADMIN_EMAIL: admin@example.com
+      # ADMIN_PASSWORD: admin123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/migrations:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cmdb_user -d cmdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cmdb-network
+
+  # Go Backend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: cmdb-backend
+    environment:
+      DATABASE_URL: postgres://cmdb_user:cmdb_password@postgres:5432/cmdb?sslmode=disable
+      SERVER_PORT: 8080
+      JWT_SECRET: change-this-secret-in-production
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+    restart: unless-stopped
+    networks:
+      - cmdb-network
+
+  # React Frontend
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=http://localhost:8080/api
+        - VITE_WS_URL=localhost:8080
+    container_name: cmdb-frontend
+    ports:
+      - "3001:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - cmdb-network
+
+networks:
+  cmdb-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
