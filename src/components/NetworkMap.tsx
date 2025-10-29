@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Server, Network } from "lucide-react";
+import { NetworkMapUpload } from "./NetworkMapUpload";
 
 interface NetworkMapProps {
   servers: {
@@ -183,10 +184,13 @@ export const NetworkMap = ({ servers, groups }: NetworkMapProps) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Network className="h-5 w-5" />
-          Network Map
-        </CardTitle>
+        <div className="flex items-center justify-between">
+          <CardTitle className="flex items-center gap-2">
+            <Network className="h-5 w-5" />
+            Network Map
+          </CardTitle>
+          <NetworkMapUpload servers={servers} />
+        </div>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">

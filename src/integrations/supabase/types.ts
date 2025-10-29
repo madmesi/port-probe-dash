@@ -14,6 +14,99 @@ export type Database = {
   }
   public: {
     Tables: {
+      api_keys: {
+        Row: {
+          created_at: string
+          created_by: string
+          expires_at: string | null
+          id: string
+          is_active: boolean
+          key_hash: string
+          key_prefix: string
+          last_used_at: string | null
+          name: string
+          permissions: Json | null
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean
+          key_hash: string
+          key_prefix: string
+          last_used_at?: string | null
+          name: string
+          permissions?: Json | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean
+          key_hash?: string
+          key_prefix?: string
+          last_used_at?: string | null
+          name?: string
+          permissions?: Json | null
+        }
+        Relationships: []
+      }
+      network_data_uploads: {
+        Row: {
+          created_at: string
+          error_message: string | null
+          file_size: number
+          file_type: string
+          id: string
+          parsed_data: Json | null
+          processed: boolean
+          processed_at: string | null
+          server_id: string
+          uploaded_by: string
+        }
+        Insert: {
+          created_at?: string
+          error_message?: string | null
+          file_size: number
+          file_type: string
+          id?: string
+          parsed_data?: Json | null
+          processed?: boolean
+          processed_at?: string | null
+          server_id: string
+          uploaded_by: string
+        }
+        Update: {
+          created_at?: string
+          error_message?: string | null
+          file_size?: number
+          file_type?: string
+          id?: string
+          parsed_data?: Json | null
+          processed?: boolean
+          processed_at?: string | null
+          server_id?: string
+          uploaded_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "network_data_uploads_server_id_fkey"
+            columns: ["server_id"]
+            isOneToOne: false
+            referencedRelation: "servers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "network_data_uploads_server_id_fkey"
+            columns: ["server_id"]
+            isOneToOne: false
+            referencedRelation: "servers_safe"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           approved: boolean | null

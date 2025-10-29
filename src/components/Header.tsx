@@ -7,7 +7,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogOut, User, Users, FolderTree } from "lucide-react";
+import { LogOut, User, Users, FolderTree, Shield } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export function Header() {
@@ -35,9 +35,9 @@ export function Header() {
         <DropdownMenuContent align="end">
           {isAdmin && (
             <>
-              <DropdownMenuItem onClick={() => navigate("/admin/users")}>
-                <Users className="h-4 w-4 mr-2" />
-                User Management
+              <DropdownMenuItem onClick={() => navigate("/admin")}>
+                <Shield className="h-4 w-4 mr-2" />
+                Admin Area
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => navigate("/admin/groups")}>
                 <FolderTree className="h-4 w-4 mr-2" />

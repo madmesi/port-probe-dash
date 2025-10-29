@@ -14,6 +14,7 @@ import { AuthProvider } from "./lib/auth";
 import Auth from "./pages/Auth";
 import AdminUsers from "./pages/AdminUsers";
 import AdminGroups from "./pages/AdminGroups";
+import AdminArea from "./pages/AdminArea";
 import { SSLExpirationNotifications } from "./components/SSLExpirationNotifications";
 
 const App = () => (
@@ -29,6 +30,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/server/:id" element={<ServerDetails />} />
             <Route path="/server/:id/ssh" element={<SSHTerminal />} />
+            <Route path="/admin" element={<AdminArea />} />
             <Route path="/admin/users" element={<AdminUsers />} />
             <Route path="/admin/groups" element={<AdminGroups />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

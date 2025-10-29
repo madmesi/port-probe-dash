@@ -139,61 +139,65 @@ const Index = () => {
           </TabsList>
 
           <TabsContent value="servers" className="space-y-6 mt-6">
-            {isAdmin && groups.length > 0 && (
-              <div className="flex flex-wrap gap-2">
-                <button
-                  onClick={() => setSelectedGroup(null)}
-                  className={`px-4 py-2 rounded-lg border transition-colors ${
-                    !selectedGroup
-                      ? "bg-primary text-primary-foreground border-primary"
-                      : "border-border hover:border-primary"
-                  }`}
-                >
-                  All Servers
-                </button>
-                {groups.map((group) => (
-                  <button
-                    key={group.id}
-                    onClick={() => setSelectedGroup(group.id)}
-                    className={`px-4 py-2 rounded-lg border transition-colors ${
-                      selectedGroup === group.id
-                        ? "bg-primary text-primary-foreground border-primary"
-                        : "border-border hover:border-primary"
-                    }`}
-                    style={{
-                      borderColor: selectedGroup === group.id ? group.color : undefined,
-                    }}
-                  >
-                    <span
-                      className="inline-block w-2 h-2 rounded-full mr-2"
-                      style={{ backgroundColor: group.color }}
-                    />
-                    {group.name}
-                  </button>
-                ))}
-              </div>
-            )}
+            <Card className="border-border">
+              <CardContent className="pt-6 space-y-6">
+                {isAdmin && groups.length > 0 && (
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      onClick={() => setSelectedGroup(null)}
+                      className={`px-4 py-2 rounded-lg border transition-colors ${
+                        !selectedGroup
+                          ? "bg-primary text-primary-foreground border-primary"
+                          : "border-border hover:border-primary"
+                      }`}
+                    >
+                      All Servers
+                    </button>
+                    {groups.map((group) => (
+                      <button
+                        key={group.id}
+                        onClick={() => setSelectedGroup(group.id)}
+                        className={`px-4 py-2 rounded-lg border transition-colors ${
+                          selectedGroup === group.id
+                            ? "bg-primary text-primary-foreground border-primary"
+                            : "border-border hover:border-primary"
+                        }`}
+                        style={{
+                          borderColor: selectedGroup === group.id ? group.color : undefined,
+                        }}
+                      >
+                        <span
+                          className="inline-block w-2 h-2 rounded-full mr-2"
+                          style={{ backgroundColor: group.color }}
+                        />
+                        {group.name}
+                      </button>
+                    ))}
+                  </div>
+                )}
 
-            {isAdmin && <AddServerDialog onServerAdded={fetchServers} groups={groups} />}
+                {isAdmin && <AddServerDialog onServerAdded={fetchServers} groups={groups} />}
 
-            <div className="flex items-center gap-4 bg-card border border-border rounded-lg p-4">
-              <Search className="h-5 w-5 text-muted-foreground" />
-              <Input
-                placeholder="Search servers by hostname or IP..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
-              />
-            </div>
+                <div className="flex items-center gap-4 bg-muted/50 border border-border rounded-lg p-4">
+                  <Search className="h-5 w-5 text-muted-foreground" />
+                  <Input
+                    placeholder="Search servers by hostname or IP..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+                  />
+                </div>
 
-            {filteredServers.length > 0 ? (
-              <ServerTable servers={filteredServers} />
-            ) : (
-              <div className="flex flex-col items-center justify-center py-12 text-muted-foreground border border-border rounded-lg">
-                <ServerIcon className="h-16 w-16 mb-4 opacity-50" />
-                <p>No servers found</p>
-              </div>
-            )}
+                {filteredServers.length > 0 ? (
+                  <ServerTable servers={filteredServers} />
+                ) : (
+                  <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
+                    <ServerIcon className="h-16 w-16 mb-4 opacity-50" />
+                    <p>No servers found</p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="ssl" className="mt-6">
