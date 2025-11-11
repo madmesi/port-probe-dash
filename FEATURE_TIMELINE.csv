@@ -1,0 +1,15 @@
+Date,Feature/Change,Description
+2025-11-03,Configurable Admin User Creation Script,Made admin user creation script configurable via environment variables.
+2025-11-03,Visual Tab Separators,Added border-r to tabs for better visual separation.
+2025-11-03,Updated Docker Compose,Added comments for optional admin credentials in docker-compose.yml.
+2025-11-03,Updated Documentation,Updated SETUP_INSTRUCTIONS.md and CHANGES_SUMMARY.md.
+2025-11-03,Automatic User Approval,Modified backend to automatically approve new users upon signup.
+2025-11-03,Network Mappings Visualization,Added a new 'Mappings' tab with a canvas-based network visualization component.
+2025-11-03,Automatic Admin Seeding,Added init-admin service to docker-compose.yml to auto-create admin user.
+2025-11-03,SSL Certificates Migration,Added backend/migrations/03_ssl_certificates.sql for SSL certificate table.
+2025-11-03,Hardened Frontend Authentication,Improved auth flow in src/lib/auth.tsx to prevent state races after login.
+2025-11-03,Defensive UI Coding,Added null/array guards in UI components (e.g., SSLExpirationNotifications.tsx, Index.tsx).
+2025-11-10,Add Tags to Servers,Added 'tags' column to the 'servers' table in the database.
+2025-11-10,Defensive Data Handling (SSL),Added Array.isArray checks for API responses in SSLManagement.tsx.
+2025-11-10,Defensive Data Handling (Users),Added Array.isArray checks for API responses in AdminUsersTab.tsx.
+2025-11-10,Improved Network Data Upload,Refined parsing logic for netstat, lsof, tcpdump in NetworkMapUpload.tsx for robustness.
